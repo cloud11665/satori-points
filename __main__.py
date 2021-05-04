@@ -53,9 +53,9 @@ login = input("login:\n> ")
 print("\033[A"+" "*20+"\033[A")
 pwd = getpass.getpass("password:\n> ")
 print("\033[A"+" "*20+"\033[A")
+acc = Koishi(login,pwd)
 cid = int(input("contest id:\n> "))
 print("\033[A"+" "*20+"\033[A")
-acc = Koishi(login,pwd)
 
 points = 0
 
@@ -75,7 +75,7 @@ resultmap = {
 	for x in results}
 
 for code in [*problemmap.keys()]:
-	if problemmap[code].note == "":
+	if problemmap[code].note in ("","(zadanie dodatkowe)", "(obie grupy)"):
 		if any(map(lambda x:x.ok, resultmap.get(code,[]))):
 			pointmap[code] = 1
 		else:
@@ -84,14 +84,17 @@ for code in [*problemmap.keys()]:
 		problemmap.pop(code,...)
 
 for code in [*resultmap.keys()]:
-	due = re.match(r"^\(termin: (\d{1,2}|\.)+\)$", problemmap[code].note)
-	if not due:
+	#due = re.match(r"^\(termin: (\d{1,2}|\.)+\)$", problemmap[code].note)
+	try:
+		due = problemmap[code].note
+		due = due[due.rfind(" "):][:-1].strip()
+	except:
 		problemmap.pop(code)
 		resultmap.pop(code)
 		continue
 
 	# problem due date
-	due = datetime.strptime(due.string, r"(termin: %d.%m.%Y)") \
+	due = datetime.strptime(due, r"%d.%m.%Y") \
 	        .replace(hour=23, minute=59, second=59)
 
 	for res in [*resultmap[code]]:
