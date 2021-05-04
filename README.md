@@ -1,7 +1,7 @@
 # satori-points
 satori system point calculator
 
-# installation and usage
+## installation and usage
 ```sh
 git clone https://github.com/Cloud11665/satori-points
 cd satori-points
@@ -9,13 +9,16 @@ pip install -r ./requirements.txt
 python .
 ```
 
-# faq
+## faq
 - Q: What is contest id?
 - A: its this part
 ```
 https://satori.tcs.uj.edu.pl/contest/6460966/problems
                                      ^^^^^^^
 ```
+
+- Q: How does it get the data?
+- A: It's using a library of mine, [Koishi](https://github.com/Cloud11665/koishi)
 
 ## License
 [![GNU AGPLv3 Image](https://www.gnu.org/graphics/agplv3-with-text-162x68.png)](https://www.gnu.org/licenses/agpl-3.0.en.html)
